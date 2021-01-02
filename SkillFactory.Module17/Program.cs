@@ -1,12 +1,39 @@
 ﻿using System;
 
-namespace SkillFactory.Module17
+namespace SkillFactory.Task1
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            var exceptions = new Exception[5]
+            {
+                new DoNotDoThisException(),
+                new NullReferenceException(),
+                new OutOfMemoryException(),
+                new UriFormatException(),
+                new AggregateException()
+            };
+
+            for (int i = 0; i < exceptions.Length; i++)
+                try
+                {
+                    throw exceptions[i];
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Exception {e.GetType()} catched on step {i}:{Environment.NewLine}{e.Message}");
+                }
+                finally
+                {
+                    Console.WriteLine($"Exception successfully handled. Proceeding to the next step.{Environment.NewLine}");
+                }
+
+            Console.ReadKey();
         }
+    }
+
+    class DoNotDoThisException : Exception
+    {
     }
 }
